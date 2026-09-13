@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/BRAN-Org/.github/main/schemas/provenance.v1.schema.json",
+  "title": "BRAN Org Data Provenance & Truth Audit Schema",
+  "description": "Especificação obrigatória de proveniência e integridade para auditoria de acervos escavados pela BRAN Org.",
+  "type": "object",
+  "required": [
+    "dataset_id",
+    "source_url",
+    "scraped_at",
+    "extractor_name",
+    "health_level",
+    "total_records"
+  ],
+  "properties": {
+    "dataset_id": {
+      "type": "string",
+      "description": "Identificador do conjunto de dados auditado."
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL exata de onde os dados brutos foram escavados."
+    },
+    "scraped_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp no formato ISO 8601 da data e hora da coleta dos dados."
+    },
+    "extractor_name": {
+      "type": "string",
+      "description": "Nome do script ou biblioteca harvester utilizada para resgatar os dados."
+    },
+    "extractor_version": {
+      "type": ["string", "null"],
+      "description": "Versão ou commit hash do script harvester."
+    },
+    "raw_data_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^[a-fA-F0-9]{64}$",
+      "description": "Hash SHA-256 do arquivo/conteúdo bruto original para garantia de não-alteração."
+    },
+    "health_level": {
+      "type": "string",
+      "enum": ["GREEN", "BLUE", "YELLOW", "ORANGE"],
+      "description": "Classificação de integridade do acervo na BRAN Org."
+    },
+    "total_records": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Quantidade total de registros no dataset."
+    },
+    "missing_doi_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Contagem de registros que não possuíam DOI na fonte original."
+    },
+    "missing_abstract_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Contagem de registros sem resumo na fonte original."
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "description": "Observações técnicas sobre limitações ou particularidades do acervo original."
+    }
+  },
+  "additionalProperties": true
+}

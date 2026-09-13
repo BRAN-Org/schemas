@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/BRAN-Org/.github/main/schemas/article.v1.schema.json",
+  "title": "BRAN Org Academic Article & Proceeding Schema",
+  "description": "Especificação de dados para artigos acadêmicos, trabalhos de congressos e anais resgatados pela BRAN Org.",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "authors",
+    "publication_year"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identificador único do artigo no acervo (ex: DOI, slug ou UUID)."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Título oficial completo do artigo ou trabalho acadêmico."
+    },
+    "authors": {
+      "type": "array",
+      "description": "Lista de autores do trabalho.",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nome completo do autor."
+          },
+          "orcid": {
+            "type": ["string", "null"],
+            "pattern": "^https://orcid\\.org/\\d{4}-\\d{4}-\\d{4}-\\d{3}[0-9X]$",
+            "description": "Identificador ORCID validado do pesquisador (ex: https://orcid.org/0000-0002-1825-0097)."
+          },
+          "affiliation": {
+            "type": ["string", "null"],
+            "description": "Instituição de ensino/pesquisa do autor no momento da publicação."
+          }
+        }
+      }
+    },
+    "abstract": {
+      "type": ["string", "null"],
+      "description": "Resumo completo do artigo original. Registrado como null se ausente na fonte."
+    },
+    "publication_year": {
+      "type": "integer",
+      "minimum": 1800,
+      "maximum": 2030,
+      "description": "Ano oficial de publicação do trabalho."
+    },
+    "doi": {
+      "type": ["string", "null"],
+      "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Za-z0-9]+$",
+      "description": "Digital Object Identifier (DOI) oficial do artigo. Deve seguir o padrão da Crossref/DataCite."
+    },
+    "pdf_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "URL direta para o download do arquivo PDF original."
+    },
+    "event_name": {
+      "type": ["string", "null"],
+      "description": "Nome do evento ou congresso acadêmico no qual o trabalho foi apresentado."
+    },
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Palavras-chave registradas pelos autores."
+    }
+  },
+  "additionalProperties": true
+}

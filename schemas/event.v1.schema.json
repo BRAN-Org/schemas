@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/BRAN-Org/.github/main/schemas/event.v1.schema.json",
+  "title": "BRAN Org Academic Event & Proceedings Collection Schema",
+  "description": "Especificação de dados para eventos, simpósios, congressos e coleções de anais mapeados pela BRAN Org.",
+  "type": "object",
+  "required": [
+    "event_id",
+    "title",
+    "year",
+    "organizer"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "Identificador único do evento (ex: abec-meeting-2023)."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Nome oficial do evento ou congresso científico."
+    },
+    "year": {
+      "type": "integer",
+      "minimum": 1800,
+      "maximum": 2030,
+      "description": "Ano de realização do evento."
+    },
+    "organizer": {
+      "type": "string",
+      "description": "Instituição ou associação acadêmica responsável pela realização (ex: ABEC Brasil, SBPC)."
+    },
+    "location": {
+      "type": ["string", "null"],
+      "description": "Cidade e estado de realização do evento."
+    },
+    "website_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "URL oficial do portal do evento."
+    },
+    "total_works": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Quantidade total de trabalhos/artigos publicados nos anais do evento."
+    },
+    "health_level": {
+      "type": "string",
+      "enum": ["GREEN", "BLUE", "YELLOW", "ORANGE"],
+      "description": "Nível de confiabilidade e integridade dos dados resgatados do evento."
+    }
+  },
+  "additionalProperties": true
+}

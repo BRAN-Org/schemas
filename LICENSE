@@ -1,0 +1,33 @@
+# BRAN Org - Dual Open Science & Anti-AI Exploitation License
+
+This organization and its repositories are licensed under a dual-licensing structure to guarantee software freedom (Open Source Copyleft) and protect scientific datasets from commercial exploitation and unauthorized AI model training.
+
+---
+
+## 1. Software & Codebase License: GNU General Public License v3.0 (GPL-3.0)
+
+All source code, engine scripts, web interfaces, backend servers, components, and automated workflows developed by BRAN Org are licensed under the **GNU General Public License v3.0 (GPL-3.0)** or any later version.
+
+### Summary of Rights:
+- **Freedom to run**: You may run the software for any purpose (academic, scientific, personal, commercial).
+- **Freedom to study and modify**: You can inspect and alter the code to suit your needs.
+- **Copyleft / Open Science Guarantee**: Any derivative work or modified version of this software engine MUST also be distributed under the GPL-3.0 license and remain 100% open source.
+
+For full license terms, see: https://www.gnu.org/licenses/gpl-3.0.html
+
+---
+
+## 2. Scientific Dataset & Metadata License: CC BY-NC-SA 4.0 (Non-Commercial & Anti-AI Ingestion)
+
+All scientific datasets, article metadata, JSON databases, CSV exports, and scientometric schemas provided by BRAN Org (under `data/` directories or served via REST API endpoints) are licensed under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)** license.
+
+### Explicit Restrictions on Commercial Use & AI Training:
+- **Academic & Scientific Reuse**: Permitted exclusively for non-commercial academic research, bibliometric studies, citation analysis, and open scientific indexing.
+- **Prohibition of Commercial AI Training**: Bulk harvesting, automated scraping, or ingestion of this dataset for training commercial Artificial Intelligence (AI) models, Large Language Models (LLMs), or proprietary Machine Learning systems is **STRICTLY PROHIBITED** without prior explicit authorization from BRAN Org and the content rights holders.
+- **ShareAlike Guarantee**: Any non-commercial derivative work or scientific analysis dataset created using this data MUST also be distributed under the CC BY-NC-SA 4.0 license.
+
+For full license terms, see: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+---
+
+Copyright (c) 2026 BRAN Org (https://github.com/BRAN-Org).
