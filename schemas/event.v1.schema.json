@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/BRAN-Org/.github/main/schemas/event.v1.schema.json",
+  "$id": "https://raw.githubusercontent.com/BRAN-Org/schemas/main/schemas/event.v1.schema.json",
   "title": "BRAN Org Academic Event & Proceedings Collection Schema",
   "description": "Especificação de dados para eventos, simpósios, congressos e coleções de anais mapeados pela BRAN Org.",
   "type": "object",
