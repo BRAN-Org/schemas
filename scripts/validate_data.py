@@ -33,7 +33,18 @@ def validate_provenance(provenance_path, schema_path, data_dir=None):
             print(f"❌ Erro de Schema: Campo obrigatório '{key}' ausente no provenance.json")
             return False
 
-    valid_health_levels = ["GREEN", "BLUE", "YELLOW", "ORANGE"]
+    valid_health_levels = [
+        "VERIFIED_AUDITED",
+        "HIGH_FIDELITY",
+        "LIMITED_COVERAGE",
+        "IN_CURATION",
+        "UNAUDITED",
+        "GREEN",
+        "BLUE",
+        "YELLOW",
+        "ORANGE",
+        "RED"
+    ]
     if data["health_level"] not in valid_health_levels:
         print(f"❌ Erro de Saúde: Nível '{data['health_level']}' inválido. Deve ser um de: {valid_health_levels}")
         return False

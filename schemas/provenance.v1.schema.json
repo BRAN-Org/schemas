@@ -42,8 +42,19 @@
     },
     "health_level": {
       "type": "string",
-      "enum": ["GREEN", "BLUE", "YELLOW", "ORANGE"],
-      "description": "Classificação de integridade do acervo na BRAN Org."
+      "enum": [
+        "VERIFIED_AUDITED",
+        "HIGH_FIDELITY",
+        "LIMITED_COVERAGE",
+        "IN_CURATION",
+        "UNAUDITED",
+        "GREEN",
+        "BLUE",
+        "YELLOW",
+        "ORANGE",
+        "RED"
+      ],
+      "description": "Classificação de integridade e auditoria do acervo na BRAN Org."
     },
     "total_records": {
       "type": "integer",
@@ -60,9 +71,35 @@
       "minimum": 0,
       "description": "Contagem de registros sem resumo na fonte original."
     },
+    "doi_resolution_rate": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Taxa (0.0 a 1.0) de identificadores DOI que resolvem com sucesso."
+    },
+    "external_validation_rate": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Taxa (0.0 a 1.0) de registros validados com fontes externas independentes (Crossref/OpenAlex)."
+    },
+    "anomalies_detected_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Quantidade total de inconsistências ou conflitos identificados durante a auditoria."
+    },
+    "anomalies_resolved_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Quantidade de inconsistências saneadas com registro de correção e evidência."
+    },
     "notes": {
       "type": ["string", "null"],
       "description": "Observações técnicas sobre limitações ou particularidades do acervo original."
+    },
+    "methodology_disclaimer": {
+      "type": "string",
+      "description": "Declaração de transparência metodológica da BRAN Org."
     }
   },
   "additionalProperties": true

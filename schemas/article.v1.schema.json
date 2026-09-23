@@ -121,6 +121,124 @@
           "type": "array",
           "items": { "type": "string" },
           "description": "Etapas metodológicas mapeadas na pesquisa."
+        },
+        "provenance": {
+          "type": "object",
+          "description": "Metadados detalhados de proveniência e integridade na fonte primária.",
+          "properties": {
+            "source": {
+              "type": "string",
+              "description": "Nome ou identificador da fonte primária dos dados."
+            },
+            "source_url": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL de origem direta do registro no sistema oficial."
+            },
+            "collected_at": {
+              "type": "string",
+              "description": "Data ISO-8601 da captura do registro."
+            },
+            "raw_file_sha256": {
+              "type": ["string", "null"],
+              "pattern": "^[a-fA-F0-9]{64}$",
+              "description": "Hash SHA-256 do arquivo original capturado."
+            },
+            "archive_url": {
+              "type": ["string", "null"],
+              "format": "uri",
+              "description": "Link de snapshot ou preservação perpétua (ex: Wayback Machine)."
+            },
+            "notes": {
+              "type": ["string", "null"],
+              "description": "Observações sobre o estado do registro na fonte."
+            }
+          }
+        },
+        "validation": {
+          "type": "object",
+          "description": "Resultados de auditoria e validação externa independente do registro.",
+          "properties": {
+            "source_fidelity": {
+              "type": "boolean",
+              "description": "Indica se os metadados reproduzem fielmente a fonte oficial."
+            },
+            "doi_status": {
+              "type": "string",
+              "enum": [
+                "valid_resolves",
+                "unresolvable_404",
+                "metadata_mismatch",
+                "missing_in_source",
+                "corrected",
+                "not_checked"
+              ],
+              "description": "Status da auditoria de resolução e consistência do DOI."
+            },
+            "doi_resolves": {
+              "type": ["boolean", "null"],
+              "description": "Se o identificador DOI resolve com sucesso via HTTP no resolvedor oficial."
+            },
+            "crossref_match": {
+              "type": ["boolean", "null"],
+              "description": "Se os metadados foram validados na API do Crossref."
+            },
+            "openalex_match": {
+              "type": ["boolean", "null"],
+              "description": "Se o registro foi localizado e validado no OpenAlex."
+            },
+            "title_match_score": {
+              "type": ["number", "null"],
+              "minimum": 0.0,
+              "maximum": 1.0,
+              "description": "Grau de similaridade (0.0 a 1.0) entre o título da fonte e o metadado no Crossref."
+            },
+            "authors_match": {
+              "type": ["boolean", "null"],
+              "description": "Se a autoria confere com a base externa independente."
+            },
+            "audit_date": {
+              "type": "string",
+              "description": "Data ISO-8601 da última execução de auditoria."
+            },
+            "audit_method": {
+              "type": "string",
+              "enum": ["automated", "manual", "hybrid"],
+              "description": "Método empregado na validação deste registro."
+            }
+          }
+        },
+        "corrections": {
+          "type": "array",
+          "description": "Histórico de correções rastreáveis preservando a divergência original da fonte.",
+          "items": {
+            "type": "object",
+            "required": ["field", "source_value", "verified_value", "correction_source"],
+            "properties": {
+              "field": {
+                "type": "string",
+                "description": "Nome do campo corrigido (ex: 'doi', 'title', 'year', 'authors')."
+              },
+              "source_value": {
+                "description": "Valor exato presente originalmente na fonte primária."
+              },
+              "verified_value": {
+                "description": "Valor verificado e corrigido na base curada."
+              },
+              "correction_source": {
+                "type": "string",
+                "description": "Fonte de evidência externa que fundamentou a correção (ex: Crossref, DataCite, PDF)."
+              },
+              "correction_reason": {
+                "type": ["string", "null"],
+                "description": "Justificativa detalhada da correção."
+              },
+              "corrected_at": {
+                "type": "string",
+                "description": "Data ISO-8601 em que a correção foi documentada."
+              }
+            }
+          }
         }
       },
       "additionalProperties": true
