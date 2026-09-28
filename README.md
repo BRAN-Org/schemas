@@ -47,3 +47,11 @@ Cada repositório de dados (como `abec-open-database`, `ebbc-open-database`) ref
 "$schema": "https://raw.githubusercontent.com/BRAN-Org/schemas/main/schemas/article.v1.schema.json"
 ```
 
+---
+
+## 📬 Submissão de Dados
+
+Possui dados acadêmicos ou acervos científicos que gostaria de disponibilizar publicamente pela BRAN Org? Preencha o formulário de submissão:
+
+➡️ **[Formulário de Submissão de Datasets](https://forms.gle/jNBuP1mjyUXc6v1fA)**
+
