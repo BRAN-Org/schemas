@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use these schemas, please cite them as below."
+title: "BRAN Org Canonical Academic Data Schemas"
+version: 1.0.0
+date-released: 2026-10-02
+url: "https://github.com/BRAN-Org/schemas"
+repository-code: "https://github.com/BRAN-Org/schemas"
+license: CC-BY-NC-SA-4.0
+authors:
+  - name: "BRAN Org"
+    website: "https://github.com/BRAN-Org"
+keywords:
+  - json-schema
+  - bibliometrics
+  - academic-data
+  - open-data
