@@ -1,4 +1,4 @@
-# 📐 BRAN Org - Schemas Oficiais de Dados Acadêmicos (`BRAN-Org/schemas`)
+# BRAN Org - Schemas Oficiais de Dados Acadêmicos (`BRAN-Org/schemas`)
 
 Este repositório centraliza os **JSON Schemas oficiais (v1)** da **BRAN Org** (**Brazilian Research Archive Network**). 
 
@@ -6,7 +6,7 @@ Estes esquemas atuam como **contratos de dados rígidos** para garantir a **fide
 
 ---
 
-## 🏛️ Os Três Pilares de Integridade da BRAN Org
+## Os Três Pilares de Integridade da BRAN Org
 
 1. **Fidelidade à fonte:** Garantia de que copiamos exatamente o que estava publicado no evento/portal original, preservando o dado bruto com hash criptográfico.
 2. **Validação externa:** Confirmação independente dos dados contra infraestruturas abertas globais (Crossref, DataCite, OpenAlex, ORCID).
@@ -14,7 +14,7 @@ Estes esquemas atuam como **contratos de dados rígidos** para garantir a **fide
 
 ---
 
-## 📜 Schemas Disponíveis
+## Schemas Disponíveis
 
 | Schema | Versão | Arquivo | Descrição |
 | :--- | :--- | :--- | :--- |
@@ -24,7 +24,7 @@ Estes esquemas atuam como **contratos de dados rígidos** para garantir a **fide
 
 ---
 
-## 🧪 Validação e Auditoria Local de Dados
+## Validação e Auditoria Local de Dados
 
 ### 1. Validação Estrutural e Integridade de Schemas
 ```bash
@@ -39,7 +39,7 @@ python3 scripts/audit_dataset.py --dataset /caminho/para/dataset.json --report-m
 
 ---
 
-## 🔗 Referência nos Repositórios da BRAN Org
+## Referência nos Repositórios da BRAN Org
 
 Cada repositório de dados (como `abec-open-database`, `ebbc-open-database`) referencia este repositório no `$id` do schema:
 
@@ -49,9 +49,9 @@ Cada repositório de dados (como `abec-open-database`, `ebbc-open-database`) ref
 
 ---
 
-## 📬 Submissão de Dados
+## Submissão de Dados
 
 Possui dados acadêmicos ou acervos científicos que gostaria de disponibilizar publicamente pela BRAN Org? Preencha o formulário de submissão:
 
-➡️ **[Formulário de Submissão de Datasets](https://forms.gle/jNBuP1mjyUXc6v1fA)**
+ **[Formulário de Submissão de Datasets](https://forms.gle/jNBuP1mjyUXc6v1fA)**
 

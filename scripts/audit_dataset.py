@@ -270,7 +270,7 @@ def generate_markdown_report(report, output_path):
     pct_val = round(m['external_validation_rate'] * 100, 1)
 
     lines = [
-        "# 🛡️ Relatório de Auditoria e Integridade de Dados - BRAN Org",
+        "# Relatório de Auditoria e Integridade de Dados - BRAN Org",
         "",
         f"**Dataset:** `{report['dataset']}`  ",
         f"**Data da Auditoria:** `{report['audited_at']}`  ",
@@ -278,7 +278,7 @@ def generate_markdown_report(report, output_path):
         "",
         "---",
         "",
-        "## 📊 Métricas Agregadas",
+        "## Métricas Agregadas",
         "",
         "| Métrica | Valor | Percentual / Proporção |",
         "| :--- | :---: | :---: |",
@@ -293,17 +293,17 @@ def generate_markdown_report(report, output_path):
         "",
         "---",
         "",
-        "## 🔍 Detalhamento das Anomalias para Curadoria",
+        "## Detalhamento das Anomalias para Curadoria",
         ""
     ]
 
     if not report["anomalies"]:
-        lines.append("✅ **Nenhuma anomalia crítica detectada neste acervo.** Todos os identificadores e metadados estão consistentes.")
+        lines.append("**Nenhuma anomalia crítica detectada neste acervo.** Todos os identificadores e metadados estão consistentes.")
     else:
         lines.append("| Tipo de Anomalia | ID / DOI | Título na Fonte | Detalhes da Divergência |")
         lines.append("| :--- | :--- | :--- | :--- |")
         for a in report["anomalies"]:
-            tipo = "❌ DOI 404" if a["type"] == "UNRESOLVABLE_DOI_404" else "⚠️ Título Conflitante"
+            tipo = "DOI 404" if a["type"] == "UNRESOLVABLE_DOI_404" else "Título Conflitante"
             rid = a.get("doi") or a.get("record_id")
             title = a.get("article_title", "")[:50] + "..." if len(a.get("article_title", "")) > 50 else a.get("article_title", "")
             if a["type"] == "METADATA_MISMATCH":
@@ -318,7 +318,7 @@ def generate_markdown_report(report, output_path):
         "---",
         "",
         "> **Nota Metodológica Oficial BRAN Org:**  ",
-        "> *Os níveis de confiabilidade indicam o grau de auditoria, proveniência e validação dos dados, e não uma garantia absoluta de correção. A BRAN preserva divergências encontradas nas fontes originais e documenta correções realizadas durante o processo de curadoria.*"
+        "> *A BRAN preserva a fidelidade estrita à fonte de origem e nunca inventa dados inexistentes. Discrepâncias e lacunas identificadas nos portais oficiais são registradas nos relatórios de auditoria e tratadas via averiguação ativa e contato direto com as instituições organizadoras.*"
     ])
 
     with open(output_path, "w", encoding="utf-8") as f:
