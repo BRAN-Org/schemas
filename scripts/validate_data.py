@@ -19,9 +19,9 @@ def calculate_sha256(filepath):
     return sha.hexdigest()
 
 def validate_provenance(provenance_path, schema_path, data_dir=None):
-    print(f"🔍 Auditando arquivo de proveniência: {provenance_path} ...")
+    print(f"Auditando arquivo de proveniência: {provenance_path} ...")
     if not os.path.exists(provenance_path):
-        print(f"❌ Erro: Arquivo {provenance_path} não encontrado.")
+        print(f"Erro: Arquivo {provenance_path} não encontrado.")
         return False
     
     with open(provenance_path, "r", encoding="utf-8") as f:
@@ -30,7 +30,7 @@ def validate_provenance(provenance_path, schema_path, data_dir=None):
     required_keys = ["dataset_id", "source_url", "scraped_at", "extractor_name", "health_level", "total_records"]
     for key in required_keys:
         if key not in data:
-            print(f"❌ Erro de Schema: Campo obrigatório '{key}' ausente no provenance.json")
+            print(f"Erro de Schema: Campo obrigatório '{key}' ausente no provenance.json")
             return False
 
     valid_health_levels = [
@@ -46,7 +46,7 @@ def validate_provenance(provenance_path, schema_path, data_dir=None):
         "RED"
     ]
     if data["health_level"] not in valid_health_levels:
-        print(f"❌ Erro de Saúde: Nível '{data['health_level']}' inválido. Deve ser um de: {valid_health_levels}")
+        print(f"Erro de Saúde: Nível '{data['health_level']}' inválido. Deve ser um de: {valid_health_levels}")
         return False
 
     # Validação formal com jsonschema se disponível
@@ -56,11 +56,11 @@ def validate_provenance(provenance_path, schema_path, data_dir=None):
             with open(schema_path, "r", encoding="utf-8") as sf:
                 schema = json.load(sf)
             jsonschema.validate(instance=data, schema=schema)
-            print("  ✓ Validação formal contra provenance.v1.schema.json passou!")
+            print("  [OK] Validação formal contra provenance.v1.schema.json passou.")
         except ImportError:
             pass
         except Exception as e:
-            print(f"❌ Erro de validação de schema em {provenance_path}: {e}")
+            print(f"Erro de validação de schema em {provenance_path}: {e}")
             return False
 
     # Se houver pasta data, checar integridade de contagem e hash
@@ -76,16 +76,16 @@ def validate_provenance(provenance_path, schema_path, data_dir=None):
                         calculated_hash = calculate_sha256(jf)
                         if data.get("raw_data_sha256"):
                             if calculated_hash.lower() == data["raw_data_sha256"].lower():
-                                print(f"  ✓ Hash SHA-256 verificado com sucesso para {os.path.basename(jf)}: {calculated_hash[:16]}...")
+                                print(f"  [OK] Hash SHA-256 verificado com sucesso para {os.path.basename(jf)}: {calculated_hash[:16]}...")
                             else:
-                                print(f"  ⚠️ Aviso SHA-256: Calculado ({calculated_hash}) != Declarado ({data['raw_data_sha256']})")
+                                print(f"  [AVISO] SHA-256: Calculado ({calculated_hash}) != Declarado ({data['raw_data_sha256']})")
             except Exception as e:
-                print(f"⚠️ Aviso ao verificar arquivo {jf}: {e}")
+                print(f"[AVISO] ao verificar arquivo {jf}: {e}")
 
         if data.get("total_records") != total_items and total_items > 0:
-            print(f"  ⚠️ Discrepância de contagem: provenance declara {data.get('total_records')}, mas data/ contém {total_items} registros.")
+            print(f"  [AVISO] Discrepância de contagem: provenance declara {data.get('total_records')}, mas data/ contém {total_items} registros.")
 
-    print(f"✅ Proveniência {provenance_path} validada com sucesso! Nível de Saúde: {data['health_level']}")
+    print(f"[OK] Proveniência {provenance_path} validada com sucesso! Nível de Saúde: {data['health_level']}")
     return True
 
 def validate_articles(data_dir, schema_path):
@@ -96,14 +96,14 @@ def validate_articles(data_dir, schema_path):
     if not json_files:
         return True
 
-    print(f"🔍 Validando datasets acadêmicos em {data_dir}...")
+    print(f"Validando datasets acadêmicos em {data_dir}...")
     schema = None
     if os.path.exists(schema_path):
         try:
             with open(schema_path, "r", encoding="utf-8") as sf:
                 schema = json.load(sf)
         except Exception as e:
-            print(f"⚠️ Erro ao carregar schema de artigos: {e}")
+            print(f"[AVISO] Erro ao carregar schema de artigos: {e}")
 
     try:
         import jsonschema
@@ -124,32 +124,44 @@ def validate_articles(data_dir, schema_path):
         if can_validate_strict and schema:
             try:
                 jsonschema.validate(instance=records, schema=schema)
-                print(f"  ✅ {os.path.basename(jf)}: 100% conforme ao article.v1.schema.json!")
+                print(f"  [OK] {os.path.basename(jf)}: 100% conforme ao article.v1.schema.json.")
             except Exception as e:
-                print(f"❌ Falha de validação em {os.path.basename(jf)}: {e.message}")
+                print(f"Falha de validação em {os.path.basename(jf)}: {e.message}")
                 return False
         else:
             for idx, item in enumerate(records):
                 if not item.get("title"):
-                    print(f"❌ Item #{idx+1} sem título")
+                    print(f"Item #{idx+1} sem título")
                     return False
                 if not item.get("authors"):
-                    print(f"❌ Item #{idx+1} sem autores")
+                    print(f"Item #{idx+1} sem autores")
                     return False
-            print(f"  ✅ {os.path.basename(jf)}: validação estrutural básica concluída.")
+            print(f"  [OK] {os.path.basename(jf)}: validação estrutural básica concluída.")
 
     return True
 
 if __name__ == "__main__":
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    prov_file = os.path.join(base_dir, "provenance.json")
-    prov_schema = os.path.join(base_dir, "schemas", "provenance.v1.schema.json")
-    art_schema = os.path.join(base_dir, "schemas", "article.v1.schema.json")
-    data_dir = os.path.join(base_dir, "data")
+    import argparse
+    parser = argparse.ArgumentParser(description="Validador de Integridade e Schemas da BRAN Org")
+    parser.add_argument("--dir", default=".", help="Diretório da base de dados a validar (padrão: diretório atual)")
+    args = parser.parse_args()
+
+    target_dir = os.path.abspath(args.dir)
+    schema_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    prov_file = os.path.join(target_dir, "provenance.json")
+    prov_schema = os.path.join(schema_root, "schemas", "provenance.v1.schema.json")
+    art_schema = os.path.join(schema_root, "schemas", "article.v1.schema.json")
+    data_dir = os.path.join(target_dir, "data")
     
     success = True
     if os.path.exists(prov_file):
         success = validate_provenance(prov_file, prov_schema, data_dir) and success
+    elif os.path.exists(data_dir):
+        print(f"⚠️ Aviso: provenance.json não encontrado em {target_dir}")
+    else:
+        print(f"❌ Nenhum arquivo de dados (data/) ou provenance.json encontrado em {target_dir}")
+        sys.exit(1)
     
     if os.path.exists(data_dir):
         success = validate_articles(data_dir, art_schema) and success
