@@ -1,0 +1,35 @@
+name: Schemas Validation & Quality CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  validate-metaschemas:
+    name: Validate JSON Metaschemas & Syntax
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Validation Tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install check-jsonschema jsonschema
+
+      - name: Check JSON Metaschema Conformance
+        run: |
+          echo "Verificando se os schemas da BRAN Org são schemas Draft-07 válidos..."
+          check-jsonschema --check-metaschema schemas/*.json
+
+      - name: Syntax Check Python Tooling
+        run: |
+          python3 -m py_compile scripts/validate_data.py
+          python3 -m py_compile scripts/audit_dataset.py

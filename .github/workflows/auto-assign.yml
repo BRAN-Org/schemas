@@ -12,13 +12,17 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Atribuir issue automaticamente para GabrielBaiano
+      - name: Atribuir issue se não houver responsáveis
         uses: actions/github-script@v7
         with:
           script: |
-            github.rest.issues.addAssignees({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              assignees: ['GabrielBaiano']
-            });
+            const currentAssignees = context.payload.issue.assignees || [];
+            if (currentAssignees.length === 0) {
+              const defaultAssignee = process.env.DEFAULT_ASSIGNEE || 'GabrielBaiano';
+              await github.rest.issues.addAssignees({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                assignees: [defaultAssignee]
+              });
+            }
