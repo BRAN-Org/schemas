@@ -80,7 +80,7 @@
         },
         "doi": {
           "type": ["string", "null"],
-          "pattern": "^(https?://(dx\\.)?doi\\.org/)?10\\.\\d{4,9}/[-._;()/:,A-Za-z0-9]+$|^N/A$",
+          "pattern": "^(https?://(dx\\.)?doi\\.org/)?10\\.\\d{4,9}[/.][-_;()/:,.A-Za-z0-9]+$|^N/A$",
           "description": "Digital Object Identifier (DOI) oficial do artigo ou link persistente."
         },
         "pdf_url": {
